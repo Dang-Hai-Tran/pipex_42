@@ -6,7 +6,7 @@
 #    By: datran <datran@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/24 11:58:04 by datran            #+#    #+#              #
-#    Updated: 2023/03/24 15:57:29 by datran           ###   ########.fr        #
+#    Updated: 2023/03/24 16:19:43 by datran           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,7 @@ git:
 			@git add -A
 			@git commit -m "$m"
 			@git push
+			@echo "Commit sent to GitHub"
 # Use make git m="msg" to commit
 
 .PHONY:		all libft clean fclean re
