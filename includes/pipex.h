@@ -6,7 +6,7 @@
 /*   By: datran <datran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:05:01 by datran            #+#    #+#             */
-/*   Updated: 2023/03/21 22:50:08 by datran           ###   ########.fr       */
+/*   Updated: 2023/03/24 15:55:23 by datran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@
 
 # include "../libft/libft.h"
 
-# define ERR_INFILE "Infile"
-# define ERR_OUTFILE "Outfile"
-# define ERR_INPUT "Invalid number of argument"
-# define ERR_PIPE "Pipe" 
+# define ERR_INFILE "Cant open input file"
+# define ERR_OUTFILE "Cant create output file"
+# define ERR_NUMS_ARGS "Number of arguments is invalid"
+# define ERR_PIPE "Cant pipe"
 # define ERR_CMD "Command not found"
 
 typedef struct s_pipex
@@ -52,14 +52,16 @@ typedef struct s_pipex
 
 
 // error.c
-int		msg(char *err);
 void	msg_error(char *err);
+void	msg_perror(char *err);
 
 // free.c
-void	parent_free(t_pipex *pipex);
-void	child_free(t_pipex *pipex);
+void	close_pipes(t_pipex *pipex);
+void	close_in_out(t_pipex *pipex);
+void	free_cmd_paths(t_pipex *pipex);
 
 // childs.c
-void	first_child(t_pipex pipex, char *argv[], char *envp[]);
+void	first_redirect(t_pipex pipex, char **argv, char **envp);
+void	second_redirect(t_pipex pipex, char **argv, char **envp);
 
 #endif
