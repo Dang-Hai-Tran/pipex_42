@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   childs.c                                           :+:      :+:    :+:   */
+/*   redirects.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: datran <datran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 12:24:46 by datran            #+#    #+#             */
-/*   Updated: 2023/03/21 23:07:29 by datran           ###   ########.fr       */
+/*   Updated: 2023/03/24 15:45:59 by datran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,24 +30,36 @@ static char	*get_cmd(char **paths, char *cmd)
 	return (NULL);
 }
 
-void	first_child(t_pipex pipex, char **argv, char **envp)
+void	first_redirect(t_pipex pipex, char **argv, char **envp)
 {
-	dup2(pipex.tube[1], 1);
+	dup2(pipex.tube[1], STDOUT_FILENO);
 	close(pipex.tube[0]);
-	dup2(pipex.infile, 0);
+	dup2(pipex.infile, STDIN_FILENO);
 	pipex.cmd_args = ft_split(argv[2], ' ');
 	pipex.cmd = get_cmd(pipex.cmd_paths, pipex.cmd_args[0]);
 	if (!pipex.cmd)
 	{
-		child_free(&pipex);
-		msg(ERR_CMD);
-		exit(EXIT_FAILURE);
+		close_in_out(&pipex);
+		free_cmd_paths(&pipex);
+		free(pipex.cmd);
+		msg_error(ERR_CMD);
 	}
 	execve(pipex.cmd, pipex.cmd_args, envp);
 }
 
-void	second_child(t_pipex pipex, char **argv, char **envp)
+void	second_redirect(t_pipex pipex, char **argv, char **envp)
 {
-	dup2(pipex.tube[0], 0);
-	
+	dup2(pipex.tube[0], STDIN_FILENO);
+	close(pipex.tube[1]);
+	dup2(pipex.outfile, STDOUT_FILENO);
+	pipex.cmd_args = ft_split(argv[3], ' ');
+	pipex.cmd = get_cmd(pipex.cmd_paths, pipex.cmd_args[0]);
+	if (!pipex.cmd)
+	{
+		close_in_out(&pipex);
+		free_cmd_paths(&pipex);
+		free(pipex.cmd);
+		msg_error(ERR_CMD);
+	}
+	execve(pipex.cmd, pipex.cmd_args, envp);
 }
