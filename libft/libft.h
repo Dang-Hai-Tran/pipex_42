@@ -6,7 +6,7 @@
 /*   By: datran <datran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 17:26:59 by datran            #+#    #+#             */
-/*   Updated: 2023/03/18 22:09:16 by datran           ###   ########.fr       */
+/*   Updated: 2023/03/30 17:34:17 by datran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <sys/stat.h>
 
 # define BUFFER_SIZE	42
-# define OPEN_MAX		255
 
 int		ft_abs(int c);
 int		ft_isalpha(int c);

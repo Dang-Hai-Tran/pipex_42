@@ -6,7 +6,7 @@
 #    By: datran <datran@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/24 11:58:04 by datran            #+#    #+#              #
-#    Updated: 2023/03/24 16:19:43 by datran           ###   ########.fr        #
+#    Updated: 2023/03/30 17:38:46 by datran           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,28 +17,30 @@ RM				=		rm -rf
 
 HEAD_DIR		=		./includes/
 
-SRCS_DIR		=		./mandatory/
+SRCS_DIR		=		srcs/
 SRCS_FILES		=		pipex.c free.c error.c redirects.c
 SRCS			=		$(addprefix $(SRCS_DIR), $(SRCS_FILES))
 OBJS			=		$(SRCS:.c=.o)
 
+LIBFT			=		libft/libft.a
+
 all:		$(NAME)
 
-%o:			%.c
-			$(CC) -I$(HEAD_DIR) $(FLAGS) -c $?
+%.o:		%.c
+			$(CC) $(FLAGS) -c $< -o $@
 			
-$(NAME):	$(OBJS) libft
-			$(CC) $(FLAGS) $(OBJS) -Llibft -lft -I$(HEAD_DIR) -o $@
+$(NAME):	$(OBJS) $(LIBFT)
+			$(CC) $(FLAGS) $(OBJS) -Llibft -lft -o $@
 
-libft:
+$(LIBFT):
 			make -C libft
 
 clean:
 			make -C libft clean
-			$(RM) ./mandatory/*.o
+			$(RM) $(OBJS)
 
 fclean:		clean
-			$(RM) $(NAME) $(OBJS) ./libft/libft.a
+			$(RM) $(NAME) $(LIBFT)
 
 re:			fclean all
 

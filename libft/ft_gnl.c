@@ -6,7 +6,7 @@
 /*   By: datran <datran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 11:40:40 by datran            #+#    #+#             */
-/*   Updated: 2023/03/21 22:21:51 by datran           ###   ########.fr       */
+/*   Updated: 2023/03/30 17:42:08 by datran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,29 +101,25 @@ static char	*get_backup(char *backup)
 
 int	ft_gnl(int fd, char **line)
 {
-	static char	*backup[OPEN_MAX];
+	static char	*backup;
 	char		*buffer;
 	int			buff_size;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || line == 0 || fd > OPEN_MAX)
-		return (-1);
 	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	buff_size = 1;
-	while (((is_line(backup[fd])) == 0) && (buff_size != 0))
+	while (((is_line(backup)) == 0) && (buff_size != 0))
 	{
 		buff_size = read(fd, buffer, BUFFER_SIZE);
-		if (buff_size == -1)
-		{
-			free(buffer);
-			return (-1);
-		}
 		buffer[buff_size] = '\0';
-		backup[fd] = ft_strjoin_gnl(backup[fd], buffer);
+		backup = ft_strjoin_gnl(backup, buffer);
 	}
 	free(buffer);
-	*line = get_line(backup[fd]);
-	backup[fd] = get_backup(backup[fd]);
+	*line = get_line(backup);
+	backup = get_backup(backup);
 	if (buff_size == 0)
+	{
+		free(*line);
 		return (0);
+	}
 	return (1);
 }

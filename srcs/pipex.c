@@ -6,7 +6,7 @@
 /*   By: datran <datran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:14:16 by datran            #+#    #+#             */
-/*   Updated: 2023/03/24 15:49:04 by datran           ###   ########.fr       */
+/*   Updated: 2023/03/30 17:41:19 by datran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static char	*find_path(char **envp)
 	return (*envp + 5);
 }
 
-static void	check(int argc, char **argv, char **envp, t_pipex *pipex)
+static void	check(int argc, char **argv, t_pipex *pipex)
 {
 	if (argc != 5)
 		msg_error(ERR_NUMS_ARGS);
@@ -35,7 +35,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_pipex	pipex;
 
-	check(argc, argv, envp, &pipex);
+	check(argc, argv, &pipex);
 	pipex.paths = find_path(envp);
 	pipex.cmd_paths = ft_split(pipex.paths, ':');
 	if (pipe(pipex.tube) == -1)
