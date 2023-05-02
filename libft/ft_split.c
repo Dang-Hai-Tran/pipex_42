@@ -6,24 +6,11 @@
 /*   By: datran <datran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 12:08:53 by datran            #+#    #+#             */
-/*   Updated: 2022/11/22 15:26:49 by datran           ###   ########.fr       */
+/*   Updated: 2023/05/02 16:09:51 by datran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-static void	ft_freedown(char **tab, size_t	i)
-{
-	size_t	j;
-
-	j = 0;
-	while (j <= i)
-	{
-		free(tab[j]);
-		j++;
-	}
-	free(tab);
-}
 
 static size_t	ft_wordcount(char *str, char c)
 {
@@ -82,11 +69,6 @@ char	**ft_split(char const *str, char c)
 	while (i < count)
 	{
 		tab[i] = ft_firstword(((char *)str), c, &pos);
-		if (tab[i] == NULL)
-		{
-			ft_freedown(tab, i);
-			return (NULL);
-		}
 		str += pos;
 		i++;
 	}
