@@ -1,36 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_is_argument.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: datran <datran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/09 15:32:24 by datran            #+#    #+#             */
-/*   Updated: 2022/11/14 22:54:25 by datran           ###   ########.fr       */
+/*   Created: 2022/11/25 13:56:16 by datran            #+#    #+#             */
+/*   Updated: 2023/05/01 19:52:43 by datran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *str)
+int	ft_is_argument(int c)
 {
-	int			sign;
-	long long	res;
-
-	sign = 1;
-	res = 0;
-	while ((*str >= 9 && *str <= 13) || *str == 32)
-		str++;
-	if (*str == '-' || *str == '+')
-	{
-		if (*str == '-')
-			sign = -1;
-		str++;
-	}
-	while (ft_isdigit(*str))
-	{
-		res = res * 10 + (*str - '0');
-		str++;
-	}
-	return (res * sign);
+	return (c == 'c' || c == 's' || c == 'p' || c == 'd' || c == 'i'
+		|| c == 'u' || c == 'x' || c == 'X' || c == '%');
 }

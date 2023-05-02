@@ -6,7 +6,7 @@
 /*   By: datran <datran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 10:49:54 by datran            #+#    #+#             */
-/*   Updated: 2023/03/18 22:29:16 by datran           ###   ########.fr       */
+/*   Updated: 2023/05/01 20:46:02 by datran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ size_t	ft_strlen(const char *str)
 	size_t	i;
 
 	i = 0;
-	if (!str)
+	if (str == NULL)
 		return (0);
 	while (str[i] != '\0')
 		i++;

@@ -1,36 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_pointer_format.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: datran <datran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/09 15:32:24 by datran            #+#    #+#             */
-/*   Updated: 2022/11/14 22:54:25 by datran           ###   ########.fr       */
+/*   Created: 2022/11/25 13:56:33 by datran            #+#    #+#             */
+/*   Updated: 2023/05/01 19:53:59 by datran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *str)
+static int	ft_print_prefix(char *str)
 {
-	int			sign;
-	long long	res;
+	int	i;
 
-	sign = 1;
-	res = 0;
-	while ((*str >= 9 && *str <= 13) || *str == 32)
-		str++;
-	if (*str == '-' || *str == '+')
+	i = ft_string_format(str);
+	return (i);
+}
+
+int	ft_pointer_format(void *ptr_address)
+{
+	int				i;
+	char			*str;
+	unsigned long	address;
+
+	if (!ptr_address)
 	{
-		if (*str == '-')
-			sign = -1;
-		str++;
+		ft_putstr_fd("(nil)", 1);
+		return (5);
 	}
-	while (ft_isdigit(*str))
-	{
-		res = res * 10 + (*str - '0');
-		str++;
-	}
-	return (res * sign);
+	address = (unsigned long)ptr_address;
+	i = ft_print_prefix("0x");
+	str = ft_itoa_base(address, "0123456789abcdef");
+	i = i + ft_string_format(str);
+	free(str);
+	return (i);
 }

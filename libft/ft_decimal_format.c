@@ -1,36 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_decimal_format.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: datran <datran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/09 15:32:24 by datran            #+#    #+#             */
-/*   Updated: 2022/11/14 22:54:25 by datran           ###   ########.fr       */
+/*   Created: 2022/11/25 12:27:09 by datran            #+#    #+#             */
+/*   Updated: 2023/05/01 19:53:10 by datran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *str)
+static int	ft_is_negative(int *value)
 {
-	int			sign;
-	long long	res;
+	int	i;
 
-	sign = 1;
-	res = 0;
-	while ((*str >= 9 && *str <= 13) || *str == 32)
-		str++;
-	if (*str == '-' || *str == '+')
+	i = 0;
+	if (*value == INT_MIN)
 	{
-		if (*str == '-')
-			sign = -1;
-		str++;
+		ft_putstr_fd("-2", 1);
+		i += 2;
+		*value = 147483648;
 	}
-	while (ft_isdigit(*str))
+	else if (*value < 0)
 	{
-		res = res * 10 + (*str - '0');
-		str++;
+		ft_putchar_fd('-', 1);
+		i++;
+		*value *= -1;
 	}
-	return (res * sign);
+	return (i);
+}
+
+int	ft_decimal_format(int value)
+{
+	int		i;
+	char	*str;
+
+	i = ft_is_negative(&value);
+	str = ft_itoa_base(value, "0123456789");
+	i = i + ft_string_format(str);
+	free(str);
+	return (i);
 }

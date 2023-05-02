@@ -1,54 +1,56 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: datran <datran@student.42.fr>              +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/03/24 11:58:04 by datran            #+#    #+#              #
-#    Updated: 2023/03/30 17:38:46 by datran           ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+NAME		=	pipex
+BONUS		=	pipex_bonus
+LIBFT		=	libft/libft.a
+CC			=	gcc
 
-NAME			=		pipex
-CC				=		gcc
-FLAGS			=		-Wall -Wextra -Werror
-RM				=		rm -rf
+SRCS_DIR	=	srcs/
+SRCS_FILES	=	main.c error.c childs.c close.c
+SRCS		=	$(addprefix $(SRCS_DIR), $(SRCS_FILES))
+OBJS		=	$(SRCS:%.c=%.o)
 
-HEAD_DIR		=		./includes/
+BSRCS_DIR	=	srcs_bonus/
+BSRCS_FILES	=	main_bonus.c error_bonus.c childs_bonus.c close_bonus.c
+BSRCS		=	$(addprefix $(BSRCS_DIR), $(BSRCS_FILES))
+BOBJS		=	$(BSRCS:%.c=%.o)
 
-SRCS_DIR		=		srcs/
-SRCS_FILES		=		pipex.c free.c error.c redirects.c
-SRCS			=		$(addprefix $(SRCS_DIR), $(SRCS_FILES))
-OBJS			=		$(SRCS:.c=.o)
+LIBFTFLAGS			=		-Llibft -lft
 
-LIBFT			=		libft/libft.a
+
+CFLAGS	=	-Wall -Wextra -Werror
+RM		=	rm -f
 
 all:		$(NAME)
+bonus:		$(BONUS)
 
 %.o:		%.c
-			$(CC) $(FLAGS) -c $< -o $@
-			
+			$(CC) $(CFLAGS) -c $< -o $@
+
 $(NAME):	$(OBJS) $(LIBFT)
-			$(CC) $(FLAGS) $(OBJS) -Llibft -lft -o $@
+			$(CC) $(OBJS) $(CFLAGS) $(LIBFTFLAGS) -o $(NAME)
+
+$(BONUS):	$(BOBJS) $(LIBFT)
+			$(CC) $(BOBJS) $(CFLAGS) $(LIBFTFLAGS) -o $(BONUS)
 
 $(LIBFT):
 			make -C libft
 
 clean:
 			make -C libft clean
-			$(RM) $(OBJS)
+			$(RM) $(OBJS) $(BOBJS)
 
 fclean:		clean
-			$(RM) $(NAME) $(LIBFT)
+			$(RM) $(LIBFT)
+			$(RM) $(NAME) $(BONUS)
 
 re:			fclean all
+
+rebonus:	fclean bonus
 
 git:
 			@git add -A
 			@git commit -m "$m"
 			@git push
 			@echo "Commit sent to GitHub"
-# Use make git m="msg" to commit
+# Use make git m="msg to commit"
 
-.PHONY:		all libft clean fclean re
+.PHONY:		all clean fclean re bonus rebonus git

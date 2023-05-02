@@ -1,18 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_abs.c                                           :+:      :+:    :+:   */
+/*   ft_hexadecimal_format.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: datran <datran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/25 10:08:00 by datran            #+#    #+#             */
-/*   Updated: 2023/02/26 17:48:37 by datran           ###   ########.fr       */
+/*   Created: 2022/11/25 13:55:52 by datran            #+#    #+#             */
+/*   Updated: 2023/05/01 19:53:27 by datran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_abs(int c)
+#include "libft.h"
+
+int	ft_hexadecimal_format(unsigned int value)
 {
-	if (c < 0)
-		return (-c);
-	return (c);
+	int		i;
+	char	*str;
+
+	str = ft_itoa_base(value, "0123456789abcdef");
+	i = ft_string_format(str);
+	free(str);
+	return (i);
 }

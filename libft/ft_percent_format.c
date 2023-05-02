@@ -1,36 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_percent_format.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: datran <datran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/09 15:32:24 by datran            #+#    #+#             */
-/*   Updated: 2022/11/14 22:54:25 by datran           ###   ########.fr       */
+/*   Created: 2022/11/25 13:56:26 by datran            #+#    #+#             */
+/*   Updated: 2023/05/01 19:53:50 by datran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *str)
+int	ft_percent_format(char c)
 {
-	int			sign;
-	long long	res;
+	int	i;
 
-	sign = 1;
-	res = 0;
-	while ((*str >= 9 && *str <= 13) || *str == 32)
-		str++;
-	if (*str == '-' || *str == '+')
-	{
-		if (*str == '-')
-			sign = -1;
-		str++;
-	}
-	while (ft_isdigit(*str))
-	{
-		res = res * 10 + (*str - '0');
-		str++;
-	}
-	return (res * sign);
+	i = 0;
+	ft_putchar_fd(c, 1);
+	return (i + 1);
 }

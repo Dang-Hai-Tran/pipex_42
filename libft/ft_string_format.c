@@ -1,36 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_string_format.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: datran <datran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/09 15:32:24 by datran            #+#    #+#             */
-/*   Updated: 2022/11/14 22:54:25 by datran           ###   ########.fr       */
+/*   Created: 2022/11/25 13:56:53 by datran            #+#    #+#             */
+/*   Updated: 2023/05/01 19:58:30 by datran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *str)
+int	ft_string_format(char *str)
 {
-	int			sign;
-	long long	res;
+	int	i;
 
-	sign = 1;
-	res = 0;
-	while ((*str >= 9 && *str <= 13) || *str == 32)
-		str++;
-	if (*str == '-' || *str == '+')
+	i = 0;
+	if (!str)
 	{
-		if (*str == '-')
-			sign = -1;
-		str++;
+		ft_putstr_fd("(null)", 1);
+		return (6);
 	}
-	while (ft_isdigit(*str))
+	while (str[i] != '\0')
 	{
-		res = res * 10 + (*str - '0');
-		str++;
+		ft_putchar_fd(str[i], 1);
+		i++;
 	}
-	return (res * sign);
+	return (i);
 }
