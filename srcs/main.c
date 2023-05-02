@@ -6,7 +6,7 @@
 /*   By: datran <datran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 18:50:05 by datran            #+#    #+#             */
-/*   Updated: 2023/05/02 16:00:28 by datran           ###   ########.fr       */
+/*   Updated: 2023/05/02 16:48:58 by datran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@ static void	check_args(int argc, char **argv, t_pipex *pipex)
 {
 	if (argc != 5)
 		ft_error("Invalid number arguments");
+	if (ft_strlen(argv[1]) == 0 || ft_strlen(argv[2]) == 0 || \
+	ft_strlen(argv[3]) == 0 || ft_strlen(argv[4]) == 0)
+		ft_error("Invalid empty argument");
 	pipex->infile_fd = open(argv[1], O_RDONLY);
 	if (pipex->infile_fd < 0)
 		ft_perror("Open infile");
